@@ -1,4 +1,3 @@
-Here’s an updated repository description considering that the admin functionality is separated rather than being role-based:
 
 ---
 
