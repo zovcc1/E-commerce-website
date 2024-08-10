@@ -3,11 +3,11 @@ This repository contains a modular, feature-based Java Spring Boot application d
 
 Key Features:
 
+
     Feature-Based Structure: Organized into modular packages for admin, customer, order, and product, each containing its own controllers, services, models, and repositories.
     Security: Integrated Spring Security with JWT for authentication and role-based access control.
     Scalability: The modular design ensures the application is easily extendable and maintainable.
     RESTful API: Provides a clean and well-defined set of RESTful endpoints for interaction with the front-end or other services.
-
 Technologies Used:
 
     Java 17
