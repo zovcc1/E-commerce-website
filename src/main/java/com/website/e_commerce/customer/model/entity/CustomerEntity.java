@@ -8,7 +8,6 @@ import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.annotation.MatchesPattern;
 import java.util.Collection;
 import java.util.List;
 
@@ -87,9 +86,14 @@ public class CustomerEntity implements UserDetails {
     private String email;
 
 
+
     @NotBlank(message = "password is a mandatory")
     @Password
     private String password;
+    @NotBlank(message = "address is a mandatory")
+    private String address;
+    @NotBlank(message = "phone number is a mandatory")
+    private Long phoneNumber;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of();
