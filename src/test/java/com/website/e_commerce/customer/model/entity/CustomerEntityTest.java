@@ -1,35 +1,21 @@
 package com.website.e_commerce.customer.model.entity;
 
 
-import jakarta.validation.ConstraintViolation;
-import jakarta.validation.Validation;
-import jakarta.validation.Validator;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Collection;
-import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class CustomerEntityTest {
-
-    private GrantedAuthority grantedAuthority;
-
     private CustomerEntity customerEntity;
-    Validator validator;
     @BeforeEach
     void setUp() {
-
         customerEntity = CustomerEntity.builder()
                 .id(1L)
                 .firstName("Jon")
