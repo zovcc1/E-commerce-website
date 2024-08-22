@@ -1,6 +1,9 @@
 package com.website.e_commerce.customer.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.website.e_commerce.annotation.Password;
+import com.website.e_commerce.order.model.entity.OrderEntity;
+import com.website.e_commerce.product.model.entity.Product;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -9,7 +12,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * The {@code CustomerEntity} class represents a customer in the e-commerce application.
@@ -63,7 +68,7 @@ import java.util.List;
 
 @Data
 @Entity
-@Table
+@Table(name = "customer")
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -82,18 +87,28 @@ public class CustomerEntity implements UserDetails {
     private String lastName;
     @NotBlank(message = "email is a mandatory")
     @Column(name = "email" , unique = true , nullable = false)
-    @Email(message = "must be a well-formed email address" , regexp = "\\\\b[A-Z0-9._%-]+@[A-Z0-9.-]+\\\\.[A-Z]{2,4}\\\\b")
+    @Email(message = "must be a well-formed email address")
     private String email;
-
-
-
     @NotBlank(message = "password is a mandatory")
     @Password
     private String password;
     @NotBlank(message = "address is a mandatory")
     private String address;
     @NotBlank(message = "phone number is a mandatory")
-    private Long phoneNumber;
+    private String phoneNumber;
+
+     @ManyToMany
+     @JsonIgnore
+     @JoinTable(
+             name = "customer_product" ,
+             joinColumns = @JoinColumn(name = "customer_id"),
+             inverseJoinColumns = @JoinColumn(name = "product_id")
+     )
+     private Set<Product> products = new HashSet<>();
+     @JsonIgnore
+     @OneToMany(mappedBy = "customer" , cascade = CascadeType.ALL , orphanRemoval = true , fetch = FetchType.LAZY)
+     private Set<OrderEntity> orderEntities = new HashSet<>();
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of();
@@ -120,12 +135,12 @@ public class CustomerEntity implements UserDetails {
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 
 }
