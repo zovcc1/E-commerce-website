@@ -85,6 +85,18 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ProblemDetail> handelProductAlreadyExistException(ProductAlreadyExistException exception){
         return createProblemDetailResponse(HttpStatus.CONFLICT , exception.getMessage()  , "product already exist!");
     }
+    // cart exception handlers
+    @ExceptionHandler(CartNotFoundException.class)
+    public ResponseEntity<ProblemDetail> handleCartNotFoundException(CartNotFoundException exception){
+        return createProblemDetailResponse(HttpStatus.NOT_FOUND , exception.getMessage()  , "cart not found.");
+    }
+    //category exception handlers
+    @ExceptionHandler(AlreadyExistException.class)
+    public ResponseEntity<ProblemDetail>handleAlreadyExistException(AlreadyExistException exception){
+        return createProblemDetailResponse(HttpStatus.CONFLICT , exception.getMessage() , "create category ? ");
+
+    }
+
 
 
     private ResponseEntity<ProblemDetail> createProblemDetailResponse(HttpStatus status, String message, String description) {
