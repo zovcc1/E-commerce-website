@@ -104,6 +104,12 @@ public class GlobalExceptionHandler {
         errorDetail.setProperty("description", description);
         return new ResponseEntity<>(errorDetail, status);
     }
+    // Resources Not Found Exception for all entities
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<ProblemDetail>handleResourceNotFoundException(ResourceNotFoundException exception){
+
+        return createProblemDetailResponse(HttpStatus.NOT_FOUND , exception.getMessage() , "the resource you're trying to look for was not found ! ");
+    }
 
 
 }
